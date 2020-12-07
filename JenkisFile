@@ -1,0 +1,23 @@
+node ('centos'){  
+    stage('Build') { 
+        // 
+        echo 'Build'
+        checkout scm
+    }
+    stage('Deploy') { 
+        // 
+        echo 'Deploy'
+        sh 'cd restapi-teach && sh run.sh'
+    }
+    stage('Test') { 
+        
+        echo 'Test'
+        //bat 'robot -P D:\\PycharmProjects\\MyProject\\RFTest\\rf2\\ -t Test1 D:\\PycharmProjects\\MyProject\\RFTest\\rf2\\robotTest2.robot'
+        
+    }
+    stage('Deploy') { 
+        // 
+        echo 'Deploy'
+        emailext attachLog: true, attachmentsPattern: '*.html,*.xml', body: 'pipeline test', subject: '这是一个测试', to: '17154463@qq.com'
+    }
+}
